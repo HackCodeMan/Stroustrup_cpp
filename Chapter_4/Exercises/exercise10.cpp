@@ -7,28 +7,27 @@ int randomize(int start, int finish)
 {
     srand(time(0));
     int result = start + rand() % finish;
+    return result;
 }
 char bot_move()
 {
     using namespace std;
     char result;
     int bot_choose = randomize(1, 3);
-    cout << "bot_choose == " << bot_choose << endl;
     switch (bot_choose)
     {
         case 1:
-            result = 'К' ;
+            result = 'K' ;
             break;
         case 2: 
-            result = 'Н' ;
+            result = 'N' ;
             break;
         case 3:
-            result = 'Б';
+            result = 'B';
             break;
         default:
             std::cerr << "Error in bot_move()\n";
     }
-    cout << "result == "<< result << endl;
     return result;
 }
 std::string knb_to_str(char item)
@@ -36,20 +35,19 @@ std::string knb_to_str(char item)
     std::string result;
     switch (item)
     {
-    case 'К':
+    case 'K':
         result = "Камень";
         break;
-    case 'Н':
+    case 'N':
         result = "Ножницы";
         break;
-    case 'Б':
+    case 'B':
         result = "Бумага";
         break;
     default:
         std::cerr << "error: knb_to_str\n";
         break;
     }
-    std::cout << "result == " << result << std::endl;
     return result;
 }
 char who_win_round(char bot_item, char user_item)
@@ -61,46 +59,52 @@ char who_win_round(char bot_item, char user_item)
     }
     else
     {
-        if(bot_item == 'К')
+        if(bot_item == 'K')
         {
             switch (user_item)
             {
-                case 'Н':
+                case 'N':
                     result = 'b';
                     break;
-                case 'Б':
-                    result = 'u';
-                    break;
-            }
-        }
-        else if (bot_item == 'Н')
-        {
-            switch (user_item)
-            {
-                case 'К':
-                    result = 'b';
-                    break;
-                case 'Б':
-                    result = 'u';
-                    break;
-            }
-        }
-        else if (bot_item == 'Б')
-        {
-            switch (user_item)
-            {
-                case 'К':
-                    result = 'b';
-                    break;
-                case 'Н':
+                case 'B':
                     result = 'u';
                     break;
                 default:
                     std::cerr << "Error: Ошибка в  switch в win_who_round" << std::endl;
+                    break;
+            }
+        }
+        else if (bot_item == 'N')
+        {
+            switch (user_item)
+            {
+                case 'K':
+                    result = 'b';
+                    break;
+                case 'B':
+                    result = 'u';
+                    break;
+                default:
+                    std::cerr << "Error: Ошибка в  switch в win_who_round" << std::endl;
+                    break;
+            }
+        }
+        else if (bot_item == 'B')
+        {
+            switch (user_item)
+            {
+                case 'K':
+                    result = 'b';
+                    break;
+                case 'N':
+                    result = 'u';
+                    break;
+                default:
+                    std::cerr << "Error: Ошибка в  switch в win_who_round" << std::endl;
+                    break;
             }
         }   
     }
-    std::cout << "result == " << result << std::endl;
     return result; 
 
 }
@@ -115,12 +119,10 @@ int main(int argc, char const *argv[])
 
     while ((user_score < round) & (bot_score < round))
     {
-        cout << "Выбери:\nK (Камень)\nН (Ножницы)\nБ (Бумага)\nНапиши заглавную букву выбора: ";
+        cout << "Выбери:\nK (Камень)\nN (Ножницы)\nB (Бумага)\nНапиши ЗАГЛАВНУЮ АНГЛИЙСКУЮ букву выбора: ";
         char user_item;
         cin >> user_item;
-        cout << "user_item == " << user_item << endl;
         char bot_item = bot_move();
-        cout << "bot_item == " << bot_item << endl;
         char who_win = who_win_round(bot_item, user_item);
         switch (who_win)
         {
@@ -133,6 +135,7 @@ int main(int argc, char const *argv[])
             user_score++;
             break;
         case 'n':
+            cout << "У меня такой же предмет: " << knb_to_str(bot_item) << endl;
             break;
         default:
             cerr << "Error: Не смог определить кто выиграл в раунде." << endl;
