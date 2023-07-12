@@ -2,12 +2,13 @@
 #include <cmath>
 #include <windows.h>
 
+template <typename numbers>
 int main(int argc, char const *argv[])
 {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
     using namespace std;
-    double num1, num2;
+    numbers num1, num2;
     char math_operation;
     cout << "Введите числовой пример. Например, num1 + num2 (+*^/-)\nВаш пример: ";
     cin >> num1 >> math_operation >> num2;
